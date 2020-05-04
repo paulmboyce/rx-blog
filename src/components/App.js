@@ -8,12 +8,16 @@ import { initBlogsAction } from "../actionCreators";
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+		this.initData(props.store);
+	}
+
+	initData(store) {
 		// Get from AXIOS
 		axiosJsonP
 			.get("/posts")
 			.then(function (response) {
 				console.log("RESPONSE: /posts ", response.data);
-				props.store.dispatch(initBlogsAction(response.data));
+				store.dispatch(initBlogsAction(response.data));
 			})
 			.catch(function (err) {
 				console.log("HOUSTON ... We have a problem... ==> ", err);

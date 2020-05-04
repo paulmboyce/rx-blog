@@ -7,11 +7,9 @@ const PostList = function ({ posts }) {
 	}
 
 	const renderPosts = () => {
-		console.log("POSTS: ", posts);
 		return posts.map((post) => {
-			console.log("POST: ", post);
 			return (
-				<div>
+				<div key={post.title}>
 					<img alt=""></img>
 					<div>Title: {post.title} </div>
 					<div>Body: {post.body}</div>
