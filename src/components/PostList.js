@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import Author from "./Author";
 
 const PostList = function ({ posts }) {
 	if (!posts) {
@@ -9,17 +10,23 @@ const PostList = function ({ posts }) {
 	const renderPosts = () => {
 		return posts.map((post) => {
 			return (
-				<div key={post.title}>
+				<div className="ui segment" key={post.title}>
 					<img alt=""></img>
-					<div>Title: {post.title} </div>
-					<div>Body: {post.body}</div>
-					<div>Author:</div>
+					<div>
+						<h1>{post.title}</h1>
+					</div>
+					<div>
+						<p>{post.body}</p>
+					</div>
+					<div>
+						<Author name={post.author} />
+					</div>
 				</div>
 			);
 		});
 	};
 
-	return <div>Posts: {renderPosts()}</div>;
+	return <div>{renderPosts()}</div>;
 };
 
 const mapStateToProps = (state) => {

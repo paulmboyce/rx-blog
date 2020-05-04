@@ -26,16 +26,11 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				Hello App!
-				<PostList posts={this.props.posts} />
+			<div className="ui container">
+				<PostList />
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = function (state) {
-	console.log("APP STATE: ", state);
-	return { posts: state.posts };
-};
-export default connect(mapStateToProps, { initBlogsAction })(App);
+export default connect(null, { initBlogsAction })(App);
