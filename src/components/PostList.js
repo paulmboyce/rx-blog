@@ -8,16 +8,19 @@ import { initBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		this.initData(this.props.store);
+		this.initData();
 	}
-	initData(store) {
+
+	initData() {
 		// Get from AXIOS
 		axiosJsonP
 			.get("/posts")
-			.then(function (response) {
-				console.log("RESPONSE: /posts ", response.data);
-				store.dispatch(initBlogsAction(response.data));
-			})
+			.then(
+				function (response) {
+					console.log("RESPONSE: /posts ", response.data);
+					this.props.initBlogsAction(response.data);
+				}.bind(this)
+			)
 			.catch(function (err) {
 				console.log("HOUSTON ... We have a problem... ==> ", err);
 			});
