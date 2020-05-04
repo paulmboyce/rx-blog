@@ -1,18 +1,16 @@
 import { combineReducers } from "redux";
-import { axiosJsonP } from "../api/axios/JsonPlaceholder";
+import { INIT_BLOGS_TYPE } from "../actionCreators";
 
-const blogListReducer = async function (oldBlogList = [], action) {
-	// Get from AXIOS
-	try {
-		const response = await axiosJsonP.get("/posts");
-		console.log("RESPONSE: /posts ", response.data);
-		return response;
-	} catch (err) {
-		console.log("HOUSTON ... We have a problem... ==> ", err);
-		return oldBlogList;
+const blogListReducer = function (oldBlogList = [], action) {
+	console.log(`blogListReducer `, action);
+	if (action.type === INIT_BLOGS_TYPE) {
+		console.log(
+			`BLOG LIST REDUCER: Returning: ${action.payload.posts.length} posts... `
+		);
+		return action.payload.posts;
 	}
 
-	//return oldBlogList;
+	return oldBlogList;
 };
 
 const reducers = combineReducers({

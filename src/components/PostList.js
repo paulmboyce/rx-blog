@@ -7,33 +7,25 @@ const PostList = function ({ posts }) {
 	}
 
 	const renderPosts = () => {
-		let jmx = <div>Waiting for JMX...</div>;
 		console.log("POSTS: ", posts);
-		posts
-			.then(function (result) {
-				jmx = result.data.map((post) => {
-					console.log("POST: ", post);
-					return (
-						<div>
-							<img alt=""></img>
-							<div>Title: {post.title} </div>
-							<div>Body: {post.body}</div>
-							<div>Author:</div>
-						</div>
-					);
-				});
-			})
-			.finally(function () {
-				console.log("JMX: ", jmx);
-				return jmx;
-			});
+		return posts.map((post) => {
+			console.log("POST: ", post);
+			return (
+				<div>
+					<img alt=""></img>
+					<div>Title: {post.title} </div>
+					<div>Body: {post.body}</div>
+					<div>Author:</div>
+				</div>
+			);
+		});
 	};
 
-	return <div>{renderPosts()}</div>;
+	return <div>Posts: {renderPosts()}</div>;
 };
 
 const mapStateToProps = (state) => {
-	console.log("STATE: ", state);
-	return { posts: state.posts ? state.posts : [] };
+	console.log("POSTLIST STATE: ", state);
+	return { posts: state.posts };
 };
 export default connect(mapStateToProps)(PostList);
