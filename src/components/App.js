@@ -5,24 +5,33 @@ import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 import PostList from "./PostList";
 import { initBlogsAction } from "../actionCreators";
 
-const App = function () {
-	// Get from AXIOS
-	axiosJsonP
-		.get("/posts")
-		.then(function (response) {
-			console.log("RESPONSE: /posts ", response.data);
-			initBlogsAction(response.data);
-		})
-		.catch(function (err) {
-			console.log("HOUSTON ... We have a problem... ==> ", err);
-		});
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		// Get from AXIOS
+		axiosJsonP
+			.get("/posts")
+			.then(function (response) {
+				console.log("RESPONSE: /posts ", response.data);
+				props.store.dispatch(initBlogsAction(response.data));
+			})
+			.catch(function (err) {
+				console.log("HOUSTON ... We have a problem... ==> ", err);
+			});
+	}
 
-	return (
-		<div>
-			Hello App!
-			<PostList />
-		</div>
-	);
+	render() {
+		return (
+			<div>
+				Hello App!
+				<PostList posts={this.props.posts} />
+			</div>
+		);
+	}
+}
+
+const mapStateToProps = function (state) {
+	console.log("APP STATE: ", state);
+	return { posts: state.posts };
 };
-
-export default connect(null, { initBlogsAction })(App);
+export default connect(mapStateToProps, { initBlogsAction })(App);
