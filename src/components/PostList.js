@@ -2,28 +2,13 @@ import React from "react";
 import faker from "faker";
 
 import { connect } from "react-redux";
-import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 import Author from "./Author";
 import { initBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		this.initData();
-	}
-
-	initData() {
-		// Get from AXIOS
-		axiosJsonP
-			.get("/posts")
-			.then(
-				function (response) {
-					console.log("RESPONSE: /posts ", response.data);
-					this.props.initBlogsAction(response.data);
-				}.bind(this)
-			)
-			.catch(function (err) {
-				console.log("HOUSTON ... We have a problem... ==> ", err);
-			});
+		console.log("Calling initBlogsAction(). PostList..");
+		this.props.initBlogsAction();
 	}
 
 	renderPosts() {
@@ -51,7 +36,7 @@ class PostList extends React.Component {
 	}
 
 	render() {
-		return <div>{this.renderPosts()}</div>;
+		return <div>Posts:{this.renderPosts()}</div>;
 	}
 }
 
