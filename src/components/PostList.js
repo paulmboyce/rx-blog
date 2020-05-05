@@ -18,17 +18,12 @@ class PostList extends React.Component {
 		return this.props.posts.map((post) => {
 			return (
 				<div className="ui item segment" key={post.title}>
-					<div className="image">
-						<img src={faker.image.avatar()} alt=""></img>
-					</div>
 					<div className="content">
-						<div className="header">
-							<h1>{post.title}</h1>
-						</div>
 						<div className="description">
+							<h2>{post.title}</h2>
 							<p>{post.body}</p>
+							<Author name={post.author} />
 						</div>
-						<Author name={post.author} />
 					</div>
 				</div>
 			);
@@ -36,7 +31,7 @@ class PostList extends React.Component {
 	}
 
 	render() {
-		return <div>Posts:{this.renderPosts()}</div>;
+		return <div className="ui relaxed list">{this.renderPosts()}</div>;
 	}
 }
 
