@@ -7,8 +7,7 @@ const initBlogsAction = function () {
 		axiosJsonP
 			.get("/posts")
 			.then(function (response) {
-				const data = response.data;
-				dispatch(initBlogsActionPojo(data));
+				dispatch(initBlogsActionPojo(response.data));
 			})
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);
