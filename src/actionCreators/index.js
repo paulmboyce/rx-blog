@@ -4,17 +4,14 @@ const INIT_BLOGS_TYPE = "INIT_BLOGS";
 
 const initBlogsAction = function () {
 	return (dispatch) => {
-		let data = [];
 		axiosJsonP
 			.get("/posts")
 			.then(function (response) {
-				data = response.data;
+				const data = response.data;
+				dispatch(initBlogsActionPojo(data));
 			})
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);
-			})
-			.finally(function () {
-				dispatch(initBlogsActionPojo(data));
 			});
 	};
 };
