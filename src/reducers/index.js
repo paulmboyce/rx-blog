@@ -5,7 +5,7 @@ const blogListReducer = function (state = [], action) {
 	switch (action.type) {
 		case INIT_BLOGS_TYPE: {
 			console.log("blogListReducer: case > INIT_BLOGS_TYPE ");
-			return action.payload.posts;
+			return action.payload;
 		}
 		default:
 			return state;

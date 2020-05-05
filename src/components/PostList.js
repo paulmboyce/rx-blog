@@ -7,7 +7,7 @@ import { initBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		console.log("Calling initBlogsAction(). PostList..");
+		console.log("componentDidMount(). Getting data...");
 		this.props.initBlogsAction();
 	}
 

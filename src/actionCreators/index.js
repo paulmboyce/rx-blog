@@ -18,9 +18,7 @@ const initBlogsAction = function () {
 const initBlogsActionPojo = function (data) {
 	return {
 		type: INIT_BLOGS_TYPE,
-		payload: {
-			posts: data,
-		},
+		payload: data,
 	};
 };
 
