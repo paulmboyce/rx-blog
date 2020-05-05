@@ -1,6 +1,23 @@
 import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 
 const INIT_BLOGS_TYPE = "INIT_BLOGS";
+const GET_AUTHOR_TYPE = "GET_AUTHOR";
+
+const getAuthorAction = function (id) {
+	return function (dispatch) {
+		axiosJsonP
+			.get(`/users/${id}`)
+			.then(function (result) {
+				dispatch({
+					type: GET_AUTHOR_TYPE,
+					payload: { author: result.data },
+				});
+			})
+			.catch(function (err) {
+				console.log("HOUSTON: we have an: ", err);
+			});
+	};
+};
 
 const initBlogsAction = function () {
 	return (dispatch) => {
@@ -24,7 +41,7 @@ const initBlogsActionPojo = function (posts, authors) {
 	};
 };
 
-export { initBlogsAction, INIT_BLOGS_TYPE };
+export { initBlogsAction, getAuthorAction, GET_AUTHOR_TYPE, INIT_BLOGS_TYPE };
 
 /** ASYNC / AWAIT Implementation:
  * ==============================

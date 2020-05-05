@@ -1,5 +1,4 @@
 import React from "react";
-import faker from "faker";
 
 import { connect } from "react-redux";
 import Author from "./Author";
@@ -7,7 +6,7 @@ import { initBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		console.log("componentDidMount(). Getting data...");
+		console.log("POSTLIST componentDidMount(). Getting data...");
 		this.props.initBlogsAction();
 	}
 
@@ -22,7 +21,7 @@ class PostList extends React.Component {
 						<div className="description">
 							<h2>{post.title}</h2>
 							<p>{post.body}</p>
-							<Author name={post.author} />
+							<Author id={post.userId} />
 						</div>
 					</div>
 				</div>
@@ -36,7 +35,6 @@ class PostList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log("POSTLIST STATE: ", state);
 	return { posts: state.posts };
 };
 export default connect(mapStateToProps, { initBlogsAction })(PostList);
