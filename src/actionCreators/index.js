@@ -4,10 +4,9 @@ const INIT_BLOGS_TYPE = "INIT_BLOGS";
 
 const initBlogsAction = function () {
 	return (dispatch) => {
-		axiosJsonP
-			.get("/posts")
-			.then(function (response) {
-				dispatch(initBlogsActionPojo(response.data));
+		Promise.all([axiosJsonP.get("/posts"), axiosJsonP.get("/users")])
+			.then(function (results) {
+				dispatch(initBlogsActionPojo(results[0].data, results[1].data));
 			})
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);
@@ -15,10 +14,13 @@ const initBlogsAction = function () {
 	};
 };
 
-const initBlogsActionPojo = function (data) {
+const initBlogsActionPojo = function (posts, authors) {
 	return {
 		type: INIT_BLOGS_TYPE,
-		payload: data,
+		payload: {
+			posts: posts,
+			authors: authors,
+		},
 	};
 };
 
