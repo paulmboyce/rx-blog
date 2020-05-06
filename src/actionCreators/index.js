@@ -11,7 +11,7 @@ const fetchUserAction = function (userId) {
 			.then(function (result) {
 				dispatch({
 					type: FETCH_USER_TYPE,
-					payload: { author: result.data },
+					payload: { user: result.data },
 				});
 			})
 			.catch(function (err) {
@@ -42,16 +42,6 @@ const fetchBlogsAction = function () {
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);
 			});
-	};
-};
-
-const blogsActionPojo = function (posts, authors) {
-	return {
-		type: FETCH_POSTS_TYPE,
-		payload: {
-			posts: posts,
-			authors: authors,
-		},
 	};
 };
 
