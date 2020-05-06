@@ -3,11 +3,6 @@ import { connect } from "react-redux";
 import { fetchUserAction } from "../actionCreators";
 
 class Author extends React.Component {
-	componentDidMount() {
-		console.log("AUTHOR componentDidMount(). Getting state...");
-		this.props.fetchUserAction(this.props.id);
-	}
-
 	render() {
 		console.log("AUTHOR rendering()....");
 		return (
@@ -21,7 +16,7 @@ class Author extends React.Component {
 
 const mapStateToProps = function (state, ownProps) {
 	const author = state.authors.get(ownProps.id);
-	console.log(`STATE:  ${author} USER: ${ownProps.id}`);
+	//	console.log(`STATE:  ${author} USER: ${ownProps.id}`);
 	return { author: author ? author : null };
 };
 

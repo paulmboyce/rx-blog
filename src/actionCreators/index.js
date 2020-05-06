@@ -1,16 +1,11 @@
 import { axiosJsonP } from "../api/axios/JsonPlaceholder";
+import _ from "lodash";
 
 const FETCH_POSTS_TYPE = "FETCH_POSTS";
 const FETCH_USER_TYPE = "FETCH_USER";
 
-const userCache = [];
 const fetchUserAction = function (userId) {
 	return function (dispatch) {
-		if (userCache.includes(userId)) {
-			return { type: "NO_NEW_DATA" };
-		}
-
-		userCache.push(userId);
 		axiosJsonP
 			.get(`/users/${userId}`)
 			.then(function (result) {
@@ -20,17 +15,29 @@ const fetchUserAction = function (userId) {
 				});
 			})
 			.catch(function (err) {
-				userCache.pop(userId);
 				console.log("HOUSTON: we have an: ", err);
 			});
 	};
 };
 
 const fetchBlogsAction = function () {
-	return (dispatch) => {
-		Promise.all([axiosJsonP.get("/posts"), axiosJsonP.get("/users")])
-			.then(function (results) {
-				dispatch(blogsActionPojo(results[0].data, results[1].data));
+	return (dispatch, getState) => {
+		axiosJsonP
+			.get("/posts")
+			.then(function sendToRedux(results) {
+				dispatch({
+					type: FETCH_POSTS_TYPE,
+					payload: {
+						posts: results.data,
+					},
+				});
+			})
+			.then(function getSendUsersForPostsToRedux() {
+				const posts = getState().posts;
+				const userIds = _.uniq(_.map(posts, "userId"));
+				userIds.forEach(function (id) {
+					dispatch(fetchUserAction(id));
+				});
 			})
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);

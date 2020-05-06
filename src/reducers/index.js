@@ -3,7 +3,7 @@ import { FETCH_POSTS_TYPE, FETCH_USER_TYPE } from "../actionCreators";
 
 const userReducer = function (state = new Map(), action) {
 	switch (action.type) {
-		case FETCH_USER_TYPE:
+		case FETCH_USER_TYPE: {
 			// add new data
 			if (!state.has(action.payload.author.id)) {
 				const newState = new Map();
@@ -19,6 +19,7 @@ const userReducer = function (state = new Map(), action) {
 				return newState;
 			}
 			return state;
+		}
 
 		default:
 			return state;
@@ -28,13 +29,8 @@ const userReducer = function (state = new Map(), action) {
 const postsReducer = function (state = [], action) {
 	switch (action.type) {
 		case FETCH_POSTS_TYPE: {
-			console.log("postsReducer: case > INIT_BLOGS_TYPE ");
-
-			return action.payload.posts.map(function (post) {
-				post["author"] =
-					action.payload.authors[post.userId - 1]["name"];
-				return post;
-			});
+			console.log("postsReducer: case > FETCH_POSTS_TYPE ");
+			return action.payload.posts;
 		}
 		default:
 			return state;
