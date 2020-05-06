@@ -13,14 +13,16 @@ class Author extends React.Component {
 		return (
 			<div>
 				<i className="icon user" />
-				Post authored by: <b>{this.props.authors.get(this.props.id)}</b>
+				Post authored by: <b>{this.props.author}</b>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = function (state) {
-	return { authors: state.authors };
+const mapStateToProps = function (state, ownProps) {
+	const author = state.authors.get(ownProps.id);
+	console.log(`STATE:  ${author} USER: ${ownProps.id}`);
+	return { author: author ? author : null };
 };
 
 export default connect(mapStateToProps, { fetchUserAction })(Author);
