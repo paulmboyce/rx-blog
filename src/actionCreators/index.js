@@ -1,35 +1,7 @@
-import { axiosJsonP } from "../api/axios/JsonPlaceholder";
-import _ from "lodash";
-import { fetchUserAction, FETCH_POSTS_TYPE } from "./FetchUserAction";
+import { fetchUserAction, FETCH_USER_TYPE } from "./FetchUserAction";
+import { fetchPostsAction, FETCH_POSTS_TYPE } from "./FetchPostsAction";
 
-const FETCH_POSTS_TYPE = "FETCH_POSTS";
-
-const fetchBlogsAction = function () {
-	return (dispatch, getState) => {
-		axiosJsonP
-			.get("/posts")
-			.then(function sendToRedux(results) {
-				dispatch({
-					type: FETCH_POSTS_TYPE,
-					payload: {
-						posts: results.data,
-					},
-				});
-			})
-			.then(function getSendUsersForPostsToRedux() {
-				const posts = getState().posts;
-				const userIds = _.uniq(_.map(posts, "userId"));
-				userIds.forEach(function (id) {
-					dispatch(fetchUserAction(id));
-				});
-			})
-			.catch(function (err) {
-				console.log("HOUSTON, we have a problem... ", err);
-			});
-	};
-};
-
-export { fetchBlogsAction, fetchUserAction, FETCH_USER_TYPE, FETCH_POSTS_TYPE };
+export { fetchPostsAction, fetchUserAction, FETCH_USER_TYPE, FETCH_POSTS_TYPE };
 
 /** ASYNC / AWAIT Implementation:
  * ==============================

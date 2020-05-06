@@ -2,11 +2,11 @@ import React from "react";
 
 import { connect } from "react-redux";
 import User from "./User";
-import { fetchBlogsAction } from "../actionCreators";
+import { fetchPostsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		this.props.fetchBlogsAction();
+		this.props.fetchPostsAction();
 	}
 
 	renderPosts() {
@@ -36,4 +36,4 @@ class PostList extends React.Component {
 const mapStateToProps = (state) => {
 	return { posts: state.posts };
 };
-export default connect(mapStateToProps, { fetchBlogsAction })(PostList);
+export default connect(mapStateToProps, { fetchPostsAction })(PostList);
