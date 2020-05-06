@@ -1,7 +1,7 @@
 import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 
-const INIT_BLOGS_TYPE = "INIT_BLOGS";
-const GET_AUTHOR_TYPE = "GET_AUTHOR";
+const FETCH_POSTS_TYPE = "FETCH_POSTS";
+const FETCH_USER_TYPE = "FETCH_USER";
 
 const userCache = [];
 const fetchUserAction = function (userId) {
@@ -15,7 +15,7 @@ const fetchUserAction = function (userId) {
 			.get(`/users/${userId}`)
 			.then(function (result) {
 				dispatch({
-					type: GET_AUTHOR_TYPE,
+					type: FETCH_USER_TYPE,
 					payload: { author: result.data },
 				});
 			})
@@ -40,7 +40,7 @@ const fetchBlogsAction = function () {
 
 const blogsActionPojo = function (posts, authors) {
 	return {
-		type: INIT_BLOGS_TYPE,
+		type: FETCH_POSTS_TYPE,
 		payload: {
 			posts: posts,
 			authors: authors,
@@ -48,7 +48,7 @@ const blogsActionPojo = function (posts, authors) {
 	};
 };
 
-export { fetchBlogsAction, fetchUserAction, GET_AUTHOR_TYPE, INIT_BLOGS_TYPE };
+export { fetchBlogsAction, fetchUserAction, FETCH_USER_TYPE, FETCH_POSTS_TYPE };
 
 /** ASYNC / AWAIT Implementation:
  * ==============================
