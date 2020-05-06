@@ -3,10 +3,16 @@ import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 const INIT_BLOGS_TYPE = "INIT_BLOGS";
 const GET_AUTHOR_TYPE = "GET_AUTHOR";
 
-const fetchUserAction = function (id) {
+const userCache = [];
+const fetchUserAction = function (userId) {
 	return function (dispatch) {
+		if (userCache.includes(userId)) {
+			return { type: "NO_NEW_DATA" };
+		}
+
+		userCache.push(userId);
 		axiosJsonP
-			.get(`/users/${id}`)
+			.get(`/users/${userId}`)
 			.then(function (result) {
 				dispatch({
 					type: GET_AUTHOR_TYPE,
@@ -14,6 +20,7 @@ const fetchUserAction = function (id) {
 				});
 			})
 			.catch(function (err) {
+				userCache.pop(userId);
 				console.log("HOUSTON: we have an: ", err);
 			});
 	};
