@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { FETCH_POSTS_TYPE, FETCH_USER_TYPE } from "../actionCreators";
 
-const authorReducer = function (state = new Map(), action) {
+const userReducer = function (state = new Map(), action) {
 	switch (action.type) {
 		case FETCH_USER_TYPE:
 			// add new data
@@ -25,10 +25,10 @@ const authorReducer = function (state = new Map(), action) {
 	}
 };
 
-const blogListReducer = function (state = [], action) {
+const postsReducer = function (state = [], action) {
 	switch (action.type) {
 		case FETCH_POSTS_TYPE: {
-			console.log("blogListReducer: case > INIT_BLOGS_TYPE ");
+			console.log("postsReducer: case > INIT_BLOGS_TYPE ");
 
 			return action.payload.posts.map(function (post) {
 				post["author"] =
@@ -42,8 +42,8 @@ const blogListReducer = function (state = [], action) {
 };
 
 const reducers = combineReducers({
-	posts: blogListReducer,
-	authors: authorReducer,
+	posts: postsReducer,
+	authors: userReducer,
 });
 
 export { reducers };
