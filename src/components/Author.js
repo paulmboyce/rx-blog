@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAuthorAction } from "../actionCreators";
+import { fetchUserAction } from "../actionCreators";
 
 class Author extends React.Component {
 	componentDidMount() {
 		console.log("AUTHOR componentDidMount(). Getting state...");
-		this.props.getAuthorAction(this.props.id);
+		this.props.fetchUserAction(this.props.id);
 	}
 
 	render() {
@@ -23,4 +23,4 @@ const mapStateToProps = function (state) {
 	return { authors: state.authors };
 };
 
-export default connect(mapStateToProps, { getAuthorAction })(Author);
+export default connect(mapStateToProps, { fetchUserAction })(Author);

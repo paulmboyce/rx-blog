@@ -2,12 +2,12 @@ import React from "react";
 
 import { connect } from "react-redux";
 import Author from "./Author";
-import { initBlogsAction } from "../actionCreators";
+import { fetchBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
 		console.log("POSTLIST componentDidMount(). Getting data...");
-		this.props.initBlogsAction();
+		this.props.fetchBlogsAction();
 	}
 
 	renderPosts() {
@@ -37,4 +37,4 @@ class PostList extends React.Component {
 const mapStateToProps = (state) => {
 	return { posts: state.posts };
 };
-export default connect(mapStateToProps, { initBlogsAction })(PostList);
+export default connect(mapStateToProps, { fetchBlogsAction })(PostList);

@@ -3,7 +3,7 @@ import { axiosJsonP } from "../api/axios/JsonPlaceholder";
 const INIT_BLOGS_TYPE = "INIT_BLOGS";
 const GET_AUTHOR_TYPE = "GET_AUTHOR";
 
-const getAuthorAction = function (id) {
+const fetchUserAction = function (id) {
 	return function (dispatch) {
 		axiosJsonP
 			.get(`/users/${id}`)
@@ -19,11 +19,11 @@ const getAuthorAction = function (id) {
 	};
 };
 
-const initBlogsAction = function () {
+const fetchBlogsAction = function () {
 	return (dispatch) => {
 		Promise.all([axiosJsonP.get("/posts"), axiosJsonP.get("/users")])
 			.then(function (results) {
-				dispatch(initBlogsActionPojo(results[0].data, results[1].data));
+				dispatch(blogsActionPojo(results[0].data, results[1].data));
 			})
 			.catch(function (err) {
 				console.log("HOUSTON, we have a problem... ", err);
@@ -31,7 +31,7 @@ const initBlogsAction = function () {
 	};
 };
 
-const initBlogsActionPojo = function (posts, authors) {
+const blogsActionPojo = function (posts, authors) {
 	return {
 		type: INIT_BLOGS_TYPE,
 		payload: {
@@ -41,7 +41,7 @@ const initBlogsActionPojo = function (posts, authors) {
 	};
 };
 
-export { initBlogsAction, getAuthorAction, GET_AUTHOR_TYPE, INIT_BLOGS_TYPE };
+export { fetchBlogsAction, fetchUserAction, GET_AUTHOR_TYPE, INIT_BLOGS_TYPE };
 
 /** ASYNC / AWAIT Implementation:
  * ==============================
