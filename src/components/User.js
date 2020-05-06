@@ -5,7 +5,7 @@ import { fetchUserAction } from "../actionCreators";
 class User extends React.Component {
 	render() {
 		if (!this.props.user) {
-			return "";
+			return null;
 		}
 		return (
 			<div>
@@ -20,8 +20,7 @@ const mapStateToProps = function (state, ownProps) {
 	const user = state.users.find(function (user) {
 		return user.id === ownProps.userId;
 	});
-	//	console.log(`STATE:  ${user} USER: ${ownProps.id}`);
 	return { user: user ? user : null };
 };
 
-export default connect(mapStateToProps, { fetchUserAction })(User);
+export default connect(mapStateToProps)(User);

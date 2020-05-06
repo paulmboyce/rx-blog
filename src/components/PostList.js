@@ -6,7 +6,6 @@ import { fetchBlogsAction } from "../actionCreators";
 
 class PostList extends React.Component {
 	componentDidMount() {
-		console.log("POSTLIST componentDidMount(). Getting data...");
 		this.props.fetchBlogsAction();
 	}
 
